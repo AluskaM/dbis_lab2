@@ -1,0 +1,45 @@
+CREATE TABLE IF NOT EXISTS Location
+(
+  LocationId SERIAL PRIMARY KEY,
+  RegName VARCHAR(255),
+  AreaName VARCHAR(255),
+  TerTypeName VARCHAR(255),
+  TerName VARCHAR(255)
+   );
+   
+
+CREATE TABLE IF NOT EXISTS EO
+(
+    EOName TEXT PRIMARY KEY,
+    EORegName VARCHAR(255),
+    EOAreaName VARCHAR(255),
+    EOTerName VARCHAR(255),
+  LocationId INTEGER default NULL,
+  CONSTRAINT fk_Location FOREIGN KEY (LocationId)  REFERENCES Location(LocationId)
+   );
+   
+CREATE TABLE IF NOT EXISTS Person
+(
+    OUTID SERIAL PRIMARY KEY,
+    Birth INTEGER,
+    SexType VARCHAR(255),
+    EOName VARCHAR(255),
+  ClassProfileName VARCHAR(255),
+  ClassLangName VARCHAR(255),
+  LocationId INTEGER,
+  CONSTRAINT fk_Location FOREIGN KEY (LocationId)  REFERENCES Location(LocationId)
+   );
+   
+CREATE TABLE IF NOT EXISTS Test
+(
+  OUTID SERIAL PRIMARY KEY,
+  SubjectName VARCHAR(255),
+  TestYear INTEGER,
+  Status VARCHAR(255),
+  Ball100 NUMERIC,
+  Ball12 NUMERIC,
+  Ball NUMERIC,
+  AdaptScale VARCHAR(255),
+  EOName VARCHAR(255),
+  CONSTRAINT fk_EO FOREIGN KEY (EOName)  REFERENCES EO(EOName)
+   );
